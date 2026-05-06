@@ -4,6 +4,10 @@ Modern malware analysis desktop application built with Electron, React, and Type
 
 ![](assets/axalote.png)
 
+
+> [!IMPORTANT]  
+> To connect to the engine and run the frontend correctly, you need to execute https://github.com/rem0obb/axalote-engine 
+
 ## Features
 
 ### File Analysis
