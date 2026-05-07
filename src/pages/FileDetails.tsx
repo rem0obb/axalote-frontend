@@ -50,6 +50,7 @@ const DroppedFilesList = lazy(() => import('@/components/dashboard/DroppedFilesL
 const ParserViewer = lazy(() => import('@/components/dashboard/ParserViewer').then(m => ({ default: m.ParserViewer })));
 const MediaViewer = lazy(() => import('@/components/dashboard/MediaViewer').then(m => ({ default: m.MediaViewer })));
 const VTSection = lazy(() => import('@/components/dashboard/VTSection').then(m => ({ default: m.VTSection })));
+const YaraRuleGenerator = lazy(() => import('@/components/dashboard/YaraRuleGenerator').then(m => ({ default: m.YaraRuleGenerator })));
 
 import { VerdictScore } from '@/components/dashboard/VerdictScore';
 import { EntropyVisualizer } from '@/components/dashboard/EntropyVisualizer';
@@ -726,6 +727,10 @@ export default function FileDetails() {
                         <button onClick={() => setActiveTab("hex")} className={cn("px-3 py-1.5 text-xs font-medium rounded-md transition-colors", activeTab === "hex" ? "bg-primary/10 text-primary font-bold" : "text-foreground-muted hover:text-foreground hover:bg-background-secondary")}>
                             Hex View
                         </button>
+                        <button onClick={() => setActiveTab("yara-rule")} className={cn("px-3 py-1.5 text-xs font-medium rounded-md transition-colors flex items-center gap-1.5", activeTab === "yara-rule" ? "bg-primary/10 text-primary font-bold" : "text-foreground-muted hover:text-foreground hover:bg-background-secondary")}>
+                            <Braces className="h-3.5 w-3.5" />
+                            YARA Rule
+                        </button>
 
                         <button onClick={() => setActiveTab("dropped")} className={cn("px-3 py-1.5 text-xs font-medium rounded-md transition-colors", activeTab === "dropped" ? "bg-primary/10 text-primary font-bold" : "text-foreground-muted hover:text-foreground hover:bg-background-secondary")}>
                             Dropped Files
@@ -817,6 +822,18 @@ export default function FileDetails() {
                                         highlightStart={highlightStart}
                                         highlightEnd={highlightEnd}
                                     />}
+                                </div>
+                            )}
+
+                            {activeTab === 'yara-rule' && (
+                                <div className="absolute inset-0 block">
+                                    {fileToDisplay.metadata.sha256 && (
+                                        <YaraRuleGenerator
+                                            sha256={fileToDisplay.metadata.sha256}
+                                            filename={fileToDisplay.filename}
+                                            family={fileToDisplay.family}
+                                        />
+                                    )}
                                 </div>
                             )}
                         </Suspense>

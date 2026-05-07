@@ -2,7 +2,7 @@
  * AXALOTE API Service
  * Centralized service for consuming Threat Intelligence endpoints
  */
-import { YaraRule, YaraHuntMatch, YaraHuntResponse, YaraLoadRuleResponse, YaraScanResult, HeartbeatData, EngineConfig, LogsResponse, MCPTool } from '@/types/threat.types';
+import { YaraRule, YaraHuntMatch, YaraHuntResponse, YaraLoadRuleResponse, YaraScanResult, YaraGeneratedRuleResponse, HeartbeatData, EngineConfig, LogsResponse, MCPTool } from '@/types/threat.types';
 import { getEngineBaseUrl, normalizeEngineBaseUrl } from '@/lib/engine-config';
 
 export interface ApiError {
@@ -101,6 +101,20 @@ class ApiService {
     return this.request('/axalote/yara/scan', {
       method: 'POST',
       body: JSON.stringify({ sha256 }),
+    });
+  }
+
+  async generateYaraRule(
+    sha256: string,
+    payload?: { name?: string; options?: { max_strings?: number; entropy_threshold?: number } }
+  ): Promise<ApiResponse<YaraGeneratedRuleResponse>> {
+    return this.request('/axalote/yara/generate', {
+      method: 'POST',
+      body: JSON.stringify({
+        sha256,
+        name: payload?.name,
+        options: payload?.options,
+      }),
     });
   }
 

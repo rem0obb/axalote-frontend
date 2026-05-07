@@ -112,6 +112,47 @@ export interface YaraScanResult {
   modules?: string[];
 }
 
+export interface YaraGeneratedString {
+  value: string;
+  offset: number;
+  length: number;
+  encoding: string;
+  score?: number;
+  base_score?: number;
+  uniqueness?: 'unique' | 'shared' | string;
+  target_occurrences?: number;
+  document_frequency?: number;
+  reasons?: string[];
+}
+
+export interface YaraGeneratedSection {
+  name: string;
+  offset: number;
+  size: number;
+  entropy?: number;
+}
+
+export interface YaraGeneratedRuleResponse {
+  success: boolean;
+  message: string;
+  rule_name: string;
+  rule: string;
+  file_type: string;
+  strings: YaraGeneratedString[];
+  sections: YaraGeneratedSection[];
+  high_entropy_sections: YaraGeneratedSection[];
+  selection_summary?: {
+    candidates_considered: number;
+    corpus_records: number;
+    unique_selected: number;
+  };
+  parser_warnings?: string[];
+  repair_notes?: string[];
+  diagnostics?: YaraDiagnostic[];
+  warnings?: YaraDiagnostic[];
+  errors?: YaraDiagnostic[];
+}
+
 export interface StringScanOptions {
   min_length?: number;
   max_length?: number;
