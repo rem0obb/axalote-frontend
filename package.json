@@ -69,7 +69,7 @@
     "react-hook-form": "^7.61.1",
     "react-markdown": "^10.1.0",
     "react-resizable-panels": "^2.1.9",
-    "react-router-dom": "^6.30.3",
+    "react-router-dom": "^6.30.4",
     "react-virtualized-auto-sizer": "^2.0.2",
     "react-window": "^2.2.5",
     "reactflow": "^11.11.4",
